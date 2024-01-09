@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showEditCalendar : Bool = false
+    @State var eventController = EventController()   
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
+            Button {
+                showEditCalendar.toggle()
+            } label: {
+                Text("Add With EvenkitUI")
+            }
+            
+            Button {
+                eventController.addEventWithoutUi()
+            } label: {
+                Text("Add Without EvenkitUi")
+            }
+        }.sheet(isPresented: $showEditCalendar, content: {
+            EventViewRepresentable(eventController: $eventController)
+        })
         .padding()
     }
 }
